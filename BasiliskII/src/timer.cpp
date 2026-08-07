@@ -649,9 +649,33 @@ static void *timer_func(void *arg)
 #endif
 
 #if PRECISE_TIMING_WINDOWS
+static HANDLE create_waitable_timer(void)
+{
+	// The manual-reset and high-resolution flags are 0x1 and 0x2 respectively.
+	// High resolution is supported from Windows 10 version 1803. Windows XP
+	// does not export CreateWaitableTimerExW, so resolve it at runtime and use
+	// the normal timer when the API or high-resolution flag is unavailable.
+	typedef HANDLE (WINAPI *create_waitable_timer_ex_w_proc)(
+		LPSECURITY_ATTRIBUTES, LPCWSTR, DWORD, DWORD);
+	const DWORD manual_reset = 0x1;
+	const DWORD high_resolution = 0x2;
+	HMODULE kernel32 = GetModuleHandleW(L"kernel32.dll");
+	if (kernel32 != NULL) {
+		create_waitable_timer_ex_w_proc create_ex =
+			(create_waitable_timer_ex_w_proc)GetProcAddress(kernel32, "CreateWaitableTimerExW");
+		if (create_ex != NULL) {
+			HANDLE timer = create_ex(NULL, NULL,
+				manual_reset | high_resolution, TIMER_ALL_ACCESS);
+			if (timer != NULL)
+				return timer;
+		}
+	}
+	return CreateWaitableTimer(NULL, TRUE, NULL);
+}
+
 static DWORD WINAPI timer_func(void *arg)
 {
-	HANDLE timer = CreateWaitableTimer(NULL, TRUE, NULL);
+	HANDLE timer = create_waitable_timer();
 	HANDLE wakeups[2] = {timer, wakeup_event};
 
 	if (timer == NULL)
