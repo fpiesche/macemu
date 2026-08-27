@@ -120,7 +120,7 @@ jobs:
           path: ${{ matrix.project }}/src/Windows/${{ matrix.project }}.exe
 
   macos:
-    name: ${{ matrix.project }} linux-${{ matrix.arch.name }}
+    name: ${{ matrix.project.name }} macos-${{ matrix.arch.name }}
     runs-on: ${{ matrix.arch.runner }}
     strategy:
       fail-fast: false
@@ -143,7 +143,7 @@ jobs:
       - name: Install required packages
         shell: bash
         run: |
-          port install gmp mpfr
+          brew install gmp mpfr
 
       - name: Build
         shell: bash
