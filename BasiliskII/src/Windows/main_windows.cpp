@@ -26,8 +26,13 @@
 #include <errno.h>
 
 #include "my_sdl.h"
+#ifdef USE_SDL3
+#include <SDL3/SDL_mutex.h>
+#include <SDL3/SDL_thread.h>
+#else
 #include <SDL_mutex.h>
 #include <SDL_thread.h>
+#endif
 
 #include <string>
 typedef std::basic_string<TCHAR> tstring;
