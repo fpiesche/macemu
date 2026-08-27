@@ -89,6 +89,7 @@ jobs:
       - name: Build
         shell: msys2 {0}
         run: |
+          export PATH="/mingw64/bin:$PATH"
           cd ${{ matrix.project }}/src/Windows
           ../Unix/autogen.sh
           make
