@@ -8,7 +8,7 @@
 #include "my_sdl.h"
 #if SDL_VERSION_ATLEAST(3, 0, 0)
 #define SDL_MAIN_NEEDED
-#include <SDL_main.h>
+#include <SDL3/SDL_main.h>
 #undef SDL_QUIT
 #define SDL_QUIT	SDL_EVENT_QUIT
 #else
