@@ -96,7 +96,12 @@ jobs:
         shell: msys2 {0}
         run: |
           export PATH="/mingw64/bin:$PATH"
-          cd ${{ matrix.project }}/src/Windows
+          export PATH="/clangarm64/bin:$PATH"
+          cd ${{ matrix.project }}
+          if [[ "${{ matrix.project }}" == "SheepShaver" ]]; then
+            make links
+          fi
+          cd src/Windows
           ../Unix/autogen.sh
           make
 
