@@ -92,6 +92,8 @@ jobs:
         shell: msys2 {0}
         run: |
           cd ${{ matrix.project }}/src/Windows
+          aclocal
+          autoheader
           autoconf
           make
 
