@@ -145,6 +145,8 @@ jobs:
       - name: Install required packages
         shell: bash
         run: |
+          brew install gmp mpfr
+          brew --prefix mpfr
           find ${{ matrix.arch.homebrew_path }} -name "mpfr.h"
 
       - name: Build
