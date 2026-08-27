@@ -1,0 +1,8 @@
+prefix: '/opt/local'
+ports:
+  - name: gmp
+    select: native
+  - name: mpfr
+    select: native
+  - name: SDL3
+    select: native

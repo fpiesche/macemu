@@ -145,11 +145,10 @@ jobs:
       - name: Setup MacPorts
         uses: melusina-org/setup-macports@v1
 
-      - name: Install required packages
+      - name: debug
         shell: bash
         run: |
-          port install gmp mpfr SDL3
-          port contents mpfr
+          port contents SDL3
 
       - name: Build
         shell: bash

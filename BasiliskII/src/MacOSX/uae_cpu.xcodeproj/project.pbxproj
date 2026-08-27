@@ -429,7 +429,7 @@
 					../MacOSX,
 					../uae_cpu,
 					../Unix,
-					/opt/homebrew/include,
+					/opt/local/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-fwrapv";
@@ -456,7 +456,7 @@
 					../MacOSX,
 					../uae_cpu,
 					../Unix,
-					/opt/homebrew/include,
+					/opt/local/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-fwrapv";
