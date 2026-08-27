@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
+  linux:
     name: ${{ matrix.project }} linux-${{ matrix.arch.name }}
     runs-on: ${{ matrix.arch.runner }}
     strategy:
@@ -59,7 +59,7 @@ jobs:
           name: ${{ matrix.project }}-linux-${{ matrix.arch.name }}
           path: ${{ matrix.project }}/src/Unix/${{ matrix.project }}
 
-  build-win:
+  win:
     name: ${{ matrix.project }} win-${{ matrix.arch.name }}
     runs-on: ${{ matrix.arch.runner }}
     strategy:
@@ -118,3 +118,41 @@ jobs:
         with:
           name: ${{ matrix.project }}-win-${{ matrix.arch.name }}
           path: ${{ matrix.project }}/src/Windows/${{ matrix.project }}.exe
+
+  macos:
+    name: ${{ matrix.project }} linux-${{ matrix.arch.name }}
+    runs-on: ${{ matrix.arch.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - name: "BasiliskII"
+            project_file: "BasiliskII.xcodeproj"
+          - name: "SheepShaver"
+            project_file: "SheepShaver_Xcode8.xcodeproj"
+        arch:
+          - name: "x86_64"
+            runner: "macos-15-intel"
+          - name: "arm64"
+            runner: "macos-15"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Install required packages
+        shell: bash
+        run: |
+          port install gmp mpfr
+
+      - name: Build
+        shell: bash
+        run: |
+          cd ${{ matrix.project.name }}/src/MacOSX
+          xcodebuild build -project ${{ matrix.project.project_file }} -configuration Release
+
+      - name: Store build as artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: ${{ matrix.project.name }}-macos-${{ matrix.arch.name }}
+          path: ${{ matrix.project.name }}/src/MacOSX/${{ matrix.project.name }}.app
