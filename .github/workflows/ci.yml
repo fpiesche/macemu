@@ -133,8 +133,10 @@ jobs:
         arch:
           - name: "x86_64"
             runner: "macos-15-intel"
+            homebrew_path: "/usr/local/opt"
           - name: "arm64"
             runner: "macos-15"
+            homebrew_path: "/opt/homebrew"
 
     steps:
       - name: Check out repository
@@ -143,7 +145,7 @@ jobs:
       - name: Install required packages
         shell: bash
         run: |
-          find /opt/homebrew -name "mpfr.h"
+          find ${{ matrix.arch.homebrew_path }} -name "mpfr.h"
 
       - name: Build
         shell: bash
