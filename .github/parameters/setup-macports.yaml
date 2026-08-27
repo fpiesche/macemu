@@ -1,5 +1,0 @@
-prefix: '/opt/local'
-ports:
-  - name: gmp
-  - name: mpfr
-  - name: SDL3

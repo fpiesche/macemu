@@ -145,18 +145,16 @@ jobs:
       - name: Setup MacPorts
         uses: melusina-org/setup-macports@v1
 
-      - name: debug
+      - name: Install required packages
         shell: bash
         run: |
-          port contents SDL3
+          port install gmp mpfr libsdl2
 
       - name: Build
         shell: bash
         run: |
           cd ${{ matrix.project.name }}/src/MacOSX
-          xcodebuild build -project ${{ matrix.project.project_file }} -configuration Release \
-            OTHER_CFLAGS="-fwrapv -DUSE_SDL3=true"
-
+          xcodebuild build -project ${{ matrix.project.project_file }} -configuration Release
       - name: Store build as artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
