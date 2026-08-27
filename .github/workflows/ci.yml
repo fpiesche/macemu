@@ -44,10 +44,14 @@ jobs:
         shell: bash
         run: |
           cd ${{ matrix.project }}/src/Unix
+          echo "::group::Configure"
           ./autogen.sh \
             --with-sdl3 --enable-sdl-video --enable-sdl-audio \
             --with-bincue
+          echo "::endgroup::"
+          echo "::group::Make"
           make -j$(nproc)
+          echo "::endgroup::"
 
       - name: Store build as artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -95,6 +99,7 @@ jobs:
       - name: Build
         shell: msys2 {0}
         run: |
+          echo "::group::Configure"
           export PATH="/mingw64/bin:$PATH"
           export PATH="/clangarm64/bin:$PATH"
           cd ${{ matrix.project }}
@@ -103,7 +108,10 @@ jobs:
           fi
           cd src/Windows
           ../Unix/autogen.sh --with-sdl3 --with-bincue --enable-jit-compiler
+          echo "::endgroup::"
+          echo "::group::Make"
           make
+          echo "::endgroup::"
 
       - name: Store build as artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
