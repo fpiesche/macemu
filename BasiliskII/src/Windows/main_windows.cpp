@@ -654,7 +654,7 @@ static int tick_func(void *arg)
 
 #ifdef USE_SDL_VIDEO
 #if SDL_VERSION_ATLEAST(3, 0, 0)
-#include <SDL_video.h>
+#include <SDL3/SDL_video.h>
 #else
 #include <SDL_syswm.h>
 #endif
