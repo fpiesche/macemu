@@ -110,7 +110,7 @@ jobs:
           ../Unix/autogen.sh --with-sdl3 --with-bincue --enable-jit-compiler
           echo "::endgroup::"
           echo "::group::Make"
-          make
+          make -j$(nproc)
           echo "::endgroup::"
 
       - name: Store build as artifact
