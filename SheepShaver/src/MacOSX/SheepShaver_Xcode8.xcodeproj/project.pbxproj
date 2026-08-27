@@ -1205,6 +1205,7 @@
 					../kpx_cpu/include,
 					../include,
 					../Unix/dyngen_precompiled,
+					/opt/local/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1244,6 +1245,7 @@
 					../kpx_cpu/include,
 					../include,
 					../Unix/dyngen_precompiled,
+					/opt/local/include,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -1318,6 +1320,7 @@
 					../kpx_cpu/include,
 					../include,
 					../CrossPlatform,
+					/opt/local/include,
 				);
 				INFOPLIST_FILE = Info.plist.in;
 				INFOPLIST_PREFIX_HEADER = "";
@@ -1384,6 +1387,7 @@
 					../kpx_cpu/include,
 					../include,
 					../CrossPlatform,
+					/opt/local/include,
 				);
 				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
 				INFOPLIST_FILE = Info.plist.in;
