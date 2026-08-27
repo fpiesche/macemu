@@ -143,10 +143,7 @@ jobs:
       - name: Install required packages
         shell: bash
         run: |
-          brew --prefix gmp
-          brew info gmp
-          brew --prefix mpfr
-          brew info mpfr
+          find /opt/homebrew -name "mpfr.h"
 
       - name: Build
         shell: bash
