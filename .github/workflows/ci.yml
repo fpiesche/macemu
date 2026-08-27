@@ -72,7 +72,7 @@ jobs:
              mingw-w64-x86_64-SDL2
              mingw-w64-x86_64-gtk2
           - name: "arm64"
-            runner: "windows-11-arm64"
+            runner: "windows-11-arm"
             msys_packages: >-
               mingw-w64-clang-aarch64-clang
               mingw-w64-clang-aarch64-SDL2
