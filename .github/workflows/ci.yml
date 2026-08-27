@@ -69,13 +69,13 @@ jobs:
             runner: "windows-latest"
             msys_packages: >-
              mingw-w64-x86_64-gcc
-             mingw-w64-x86_64-SDL3
+             mingw-w64-x86_64-sdl3
              mingw-w64-x86_64-gtk3
           - name: "arm64"
             runner: "windows-11-arm"
             msys_packages: >-
               mingw-w64-clang-aarch64-clang
-              mingw-w64-clang-aarch64-SDL3
+              mingw-w64-clang-aarch64-sdl3
               mingw-w64-clang-aarch64-gtk3
 
     steps:
