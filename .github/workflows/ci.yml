@@ -154,7 +154,8 @@ jobs:
         shell: bash
         run: |
           cd ${{ matrix.project.name }}/src/MacOSX
-          xcodebuild build -project ${{ matrix.project.project_file }} -configuration Release
+          xcodebuild build -project ${{ matrix.project.project_file }} -configuration Release \
+            OTHER_CFLAGS="-fwrapv -DUSE_SDL3=true"
 
       - name: Store build as artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a

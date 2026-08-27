@@ -1,8 +1,8 @@
 prefix: '/opt/local'
 ports:
   - name: gmp
-    select: native
+    select: universal
   - name: mpfr
-    select: native
+    select: universal
   - name: SDL3
-    select: native
+    select: universal
