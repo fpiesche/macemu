@@ -3,13 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
       - master
     tags:
       - "v*"
   pull_request:
     branches:
-      - main
       - master
   workflow_dispatch:
 
@@ -92,9 +90,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd ${{ matrix.project }}/src/Windows
-          aclocal
-          autoheader
-          autoconf
+          ../Unix/autogen.sh
           make
 
       - name: Store build as artifact
