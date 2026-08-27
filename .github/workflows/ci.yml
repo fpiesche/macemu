@@ -142,12 +142,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
+      - name: Setup MacPorts
+        uses: melusina-org/setup-macports@v1
+
       - name: Install required packages
         shell: bash
         run: |
-          brew install gmp mpfr
-          brew --prefix mpfr
-          find ${{ matrix.arch.homebrew_path }} -name "mpfr.h"
+          port install gmp mpfr SDL3
+          port contents mpfr
 
       - name: Build
         shell: bash
