@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-                
+
       - name: Install required packages
         shell: bash
         run: |
@@ -57,3 +57,45 @@ jobs:
         with:
           name: ${{ matrix.project }}-linux-${{ matrix.arch.name }}
           path: ${{ matrix.project }}/src/Unix/${{ matrix.project }}
+
+  build-win:
+    name: ${{ matrix.project }} win-${{ matrix.arch.name }}
+    runs-on: ${{ matrix.arch.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - "BasiliskII"
+          - "SheepShaver"
+        arch:
+          - name: "x86_64"
+            runner: "windows-latest"
+          - name: "arm64"
+            runner: "windows-11-arm64"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: msys2/setup-msys2@v2
+        name Setup msys
+        with:
+          msystem: MINGW64
+          path-type: minimal
+          update: true
+          install: >-
+            mingw-w64-sdl3
+            autotools
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          cd ${{ matrix.project }}/src/Windows
+          autoconf
+          make
+
+      - name: Store build as artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: ${{ matrix.project }}-win-${{ matrix.arch.name }}
+          path: ${{ matrix.project }}/src/Windows/${{ matrix.project }}
